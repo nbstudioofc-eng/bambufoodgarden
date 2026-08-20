@@ -10,9 +10,12 @@ const files = Object.fromEntries(
 
 if (/\b(?:window|document)\b/.test(files["core.js"])) failures.push("core.js must remain independent from browser DOM globals");
 
-const order = ["runtime-config.js", "core.js", "observability.js", "script.js"].map((file) => files["index.html"].indexOf(file));
+const order = ["runtime-config.js", "observability.js", "script.js"].map((file) => files["index.html"].indexOf(file));
 if (order.some((position) => position < 0) || order.some((position, index) => index > 0 && position <= order[index - 1])) {
   failures.push("Runtime scripts are missing or loaded outside the architecture contract order");
+}
+if (!/^import \* as core from "\.\/core\.js";/m.test(files["script.js"])) {
+  failures.push("script.js must import the domain module before initializing the interface");
 }
 
 const secretPatterns = [/dsn:\s*["']https?:\/\//i, /apiKey:\s*["'][^"']+/i, /licenseKey:\s*["'][^"']+/i, /token:\s*["'][^"']+/i];
