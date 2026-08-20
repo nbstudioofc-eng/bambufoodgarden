@@ -1,0 +1,12 @@
+node_modules/
+dist/
+coverage/
+playwright-report/
+test-results/
+reports/
+.env
+.env.*
+!.env.example
+
+# Local Netlify folder
+.netlify

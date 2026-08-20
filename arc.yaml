@@ -1,0 +1,33 @@
+schemaVersion: "1"
+
+project:
+  name: bambu-food-garden
+  language: other
+  sourceRoot: "."
+
+profile: custom
+
+layers:
+  - id: domain
+    path: core.js
+    description: Regras puras e utilitários sem dependência da interface.
+    mayDependOn: []
+  - id: observability
+    path: "{observability.js,runtime-config.js}"
+    description: Telemetria opcional e configuração pública em tempo de execução.
+    mayDependOn: [domain]
+  - id: interface
+    path: "{script.js,index.html,privacidade.html,termos.html,styles.css}"
+    description: Interface pública, conteúdo, acessibilidade e interações.
+    mayDependOn: [domain, observability]
+
+kinds: {}
+naming: {}
+
+rules:
+  - id: domain-without-interface-imports
+    when:
+      layer: domain
+    forbidImports: [script.js, observability.js]
+    severity: error
+    message: O domínio não pode depender da interface ou da telemetria.

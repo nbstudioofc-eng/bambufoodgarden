@@ -1,0 +1,6 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "entry": ["script.js", "core.js", "observability.js", "runtime-config.js", "vite.config.js", "playwright.config.js", "vitest.config.js", "tools/check-architecture.mjs"],
+  "project": ["*.js", "tools/**/*.mjs", "tests/**/*.js"],
+  "ignoreDependencies": ["@godrix/architecture-contract-mcp", "@commitlint/cli", "@commitlint/config-conventional", "@stryker-mutator/core", "@stryker-mutator/vitest-runner", "@vitest/coverage-v8", "@playwright/test", "@biomejs/biome"]
+}
